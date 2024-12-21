@@ -495,13 +495,13 @@ namespace BlockLimiter
         
         public static bool CheckLimits_future(MyObjectBuilder_CubeGrid[] grids, long id = 0)
         {
-            return Limits.CheckLimits(grids, id);
+            return PluginApi.Limits.CheckLimits(grids, id);
 
         }
 
         public static bool CanAdd(List<MySlimBlock> blocks, long id, out List<MySlimBlock> nonAllowedBlocks)
         {
-            return Limits.CanAdd(blocks, id, out nonAllowedBlocks);
+            return PluginApi.Limits.CanAdd(blocks, id, out nonAllowedBlocks);
         }
         
         #endregion
