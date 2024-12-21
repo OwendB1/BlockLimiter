@@ -501,7 +501,7 @@ namespace BlockLimiter
 
         public static bool CanAdd(List<MySlimBlock> blocks, long id, out List<MySlimBlock> nonAllowedBlocks)
         {
-            
+
             return PluginApi.Limits.CanAdd(blocks, id, out nonAllowedBlocks);
         }
         
