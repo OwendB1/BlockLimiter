@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -483,7 +483,7 @@ namespace BlockLimiter.Settings
                     identity = MySession.Static.Players.TryGetIdentity(owners.FirstOrDefault());
                     playerSteamId = Utilities.GetSteamIdFromPlayerId(identity.IdentityId);
                     if (playerSteamId <= 0) break;
-                    var permList = new List<string>(EssentialsPlayerAccount.GetInheritPermList(playerSteamId));
+                    var permList = new List<string> { EssentialsPlayerAccount.GetPrimaryRank(playerSteamId) };
                     if (permList.Count == 0) break;
                     var result = false;
                     if (_limitOperator == FilterOperator.Equal)
@@ -534,7 +534,7 @@ namespace BlockLimiter.Settings
                     if (!EssentialsPlayerAccount.EssentialsInstalled) return false;
                     if ( playerId == 0) break;
                     var pSteamId = Utilities.GetSteamIdFromPlayerId(playerId);
-                    var permList = new List<string>(EssentialsPlayerAccount.GetInheritPermList(pSteamId));
+                    var permList = new List<string> { EssentialsPlayerAccount.GetPrimaryRank(pSteamId) };
                     if (permList.Count == 0) break;
                     var result = false;
                     if (_limitOperator == FilterOperator.Equal)
