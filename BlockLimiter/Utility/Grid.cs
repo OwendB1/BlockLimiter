@@ -414,12 +414,12 @@ namespace BlockLimiter.Utility
             return playerId == 0 || Block.CanAdd(grid.CubeBlocks, playerId, out _);
         }
 
-        public static bool TryCleanGridOfViolation(List<MyObjectBuilder_CubeGrid> grids, long playerId)
+        public static bool TryCleanGridOfViolation(List<MyObjectBuilder_CubeGrid> grids, long playerId, out string limitName, out int removalCount, out List<string> removedList)
         {
             var playerFaction = MySession.Static.Factions.GetPlayerFaction(playerId);
-            string limitName = null;
-            var removalCount = 0;
-            var removedList = new List<string>();
+            removalCount = 0;
+            limitName = null;
+            removedList = new List<string>();
             foreach (var grid in grids)
             {
                 foreach (var limit in BlockLimiterConfig.Instance.AllLimits)
@@ -448,12 +448,24 @@ namespace BlockLimiter.Utility
                 
             }
 
-
             return removedList.Count > 0;
 
 
         }
-        
+
+
+        public static int GetTotalBlocks(List<MyObjectBuilder_CubeGrid> grids)
+        {
+            if (grids == null || grids.Count == 0) return 0;
+            var total = 0;
+            foreach (var grid in grids)
+            {
+                if (grid?.CubeBlocks == null) continue;
+                total += grid.CubeBlocks.Count;
+            }
+            return total;
+        }
+
 
     }
 }

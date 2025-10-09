@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -15,7 +14,6 @@ using BlockLimiter.Settings;
 using BlockLimiter.Utility;
 using Newtonsoft.Json;
 using NLog;
-using NLog.Fluent;
 using Sandbox.Engine.Multiplayer;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Cube;

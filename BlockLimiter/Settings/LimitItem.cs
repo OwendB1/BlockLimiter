@@ -32,6 +32,7 @@ namespace BlockLimiter.Settings
         private List<string> _exceptions = new List<string>();
         private int _limit;
         private bool _restrictProjection;
+        private bool _annoyMessage = true;
         private bool _ignoreNpc;
         private FilterType _filterType;
         private FilterOperator _limitOperator;
@@ -161,20 +162,8 @@ namespace BlockLimiter.Settings
             }
         }
         #endregion
-       
-        #region Restrictions
 
-        [Display(Name = "PunishmentType", Order = 3, GroupName = "Restrictions", Description = "Set's what to do to extra blocks in violation of the limit")]
-        public PunishmentType Punishment
-        {
-            get => _punishType;
-            set
-            {
-                _punishType = value;
-                OnPropertyChanged();
-                Save();
-            }
-        }
+        #region Restrictions
 
         [Display(Name = "IgnoreNPCs", Order = 1, GroupName = "Restrictions", Description = "Will ignore NPC owned grids")]
         public bool IgnoreNpcs
@@ -186,9 +175,7 @@ namespace BlockLimiter.Settings
                 OnPropertyChanged();
             }
         }
-        
-        
-        
+
         [Display(Name = "Restrict Projection", GroupName = "Restrictions", Order = 2,
             Description = "Removes block from projection once limit reached.")]
         public bool RestrictProjection
@@ -200,6 +187,34 @@ namespace BlockLimiter.Settings
                 OnPropertyChanged();
             }
         }
+
+        [Display(Name = "PunishmentType", Order = 3, GroupName = "Restrictions", 
+            Description = "Set's what to do to extra blocks in violation of the limit")]
+        public PunishmentType Punishment
+        {
+            get => _punishType;
+            set
+            {
+                _punishType = value;
+                OnPropertyChanged();
+                Save();
+            }
+        }
+
+        [Display(Name = "Annoy Message", GroupName = "Restrictions", Order = 4,
+            Description = "Enables Annoy when over limit")]
+        public bool Annoy
+        {
+            get => _annoyMessage;
+            set
+            {
+                _annoyMessage = value;
+                OnPropertyChanged();
+                Save();
+            }
+        }
+
+
         #endregion
 
         #region Filter

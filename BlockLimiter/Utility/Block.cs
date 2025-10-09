@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using BlockLimiter.Patch;
 using BlockLimiter.Settings;
 using NLog;
-using NLog.Fluent;
 using Sandbox;
 using Sandbox.Definitions;
 using Sandbox.Game.Entities;

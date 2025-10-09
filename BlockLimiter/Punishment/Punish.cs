@@ -180,14 +180,16 @@ namespace BlockLimiter.Punishment
                             continue;
                         }
                         */
-                        var playerSteamId = MySession.Static.Players.TryGetSteamId(id);
 
-                        if (playerSteamId > 0 && !Annoy.AnnoyQueue.ContainsKey(playerSteamId))
-                        {
-                            Annoy.AnnoyQueue[playerSteamId] = DateTime.Now;
-                            break;
+                        //Not sure why this was here. It seems to just add a player to the annoy list if they are over limit
+                        //var playerSteamId = MySession.Static.Players.TryGetSteamId(id);
 
-                        }
+                        //if (playerSteamId > 0 && !Annoy.AnnoyQueue.ContainsKey(playerSteamId))
+                        //{
+                        //    Annoy.AnnoyQueue[playerSteamId] = DateTime.Now;
+                        //    break;
+
+                        //}
 
                         if (limit.LimitGrids && block.CubeGrid.EntityId == id)
                         {

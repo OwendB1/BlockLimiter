@@ -29,16 +29,18 @@ namespace BlockLimiter.Patch
 
         private static readonly MethodInfo ShowPasteFailed =
             typeof(MyCubeGrid).GetMethod("SendHudNotificationAfterPaste", BindingFlags.Static | BindingFlags.Public);
-        
-        private static readonly MethodInfo SpawnGrid =
-            typeof(MyCubeGrid).GetMethod("TryPasteGrid_Implementation", BindingFlags.Static | BindingFlags.Public);
 
-        #if DEBUG
+        //Very confident this is no longer needed
+        //ToDo Remove if confirmed
+        //private static readonly MethodInfo SpawnGrid =
+        //    typeof(MyCubeGrid).GetMethod("TryPasteGrid_Implementation", BindingFlags.Static | BindingFlags.Public);
+
+#if DEBUG
         [ReflectedGetter(Name = "Definition",
             TypeName = "Sandbox.Game.Entities.MyCubeBuilder+GridSpawnRequestData, Sandbox.Game")]
         private static Func<object, DefinitionIdBlit> _getDefinition;
-        #endif
-        
+#endif
+
         public static void Patch(PatchContext ctx)
         {
             
@@ -108,9 +110,8 @@ namespace BlockLimiter.Patch
         private static bool AttemptSpawn(MyCubeGrid.MyPasteGridParameters parameters)
         {
             if (!BlockLimiterConfig.Instance.EnableLimits  || !BlockLimiterConfig.Instance.EnableGridSpawnBlocking) return true;
-            var grids = parameters.Entities;
 
-            if (grids.Count == 0) return false;
+            var grids = parameters.Entities;
 
             var remoteUserId = MyEventContext.Current.Sender.Value;
 
@@ -121,51 +122,34 @@ namespace BlockLimiter.Patch
             var gridName = grids.FirstOrDefault()?.DisplayName;
             var initialBlockCount = grids.Sum(x => x.CubeBlocks.Count);
 
-            grids.RemoveAll(g=> Grid.IsSizeViolation(g) || Grid.CountViolation(g,playerId));
             
-            if (grids.Count == 0  && BlockLimiterConfig.Instance.BlockType > BlockLimiterConfig.BlockingType.Warn)
+            if (BlockLimiterConfig.Instance.BlockType > BlockLimiterConfig.BlockingType.Warn)
+            {
+                grids.RemoveAll(g => Grid.IsSizeViolation(g) || Grid.CountViolation(g, playerId));
+                if (grids.Count == 0)
+                {
+                    BlockLimiter.Instance.Log.Info($"Blocked {playerName} from spawning a grid");
+                    Utilities.TrySendDenyMessage(new List<string> { gridName }, "Size Violation", remoteUserId, initialBlockCount);
+
+                    NetworkManager.RaiseStaticEvent(ShowPasteFailed, new EndpointId(remoteUserId), null);
+                    return false;
+                }
+            }
+
+            var playerFaction = MySession.Static.Factions.GetPlayerFaction(playerId);
+            var itemsRemoved = Grid.TryCleanGridOfViolation(grids, playerId, out string limitName, out int  removalCount, out List<string> removedList);
+            //This is to keep servers from crashing if all grids are removed. FUCK MY LIFE!!!
+            if (Grid.GetTotalBlocks(grids) == 0)
             {
                 BlockLimiter.Instance.Log.Info($"Blocked {playerName} from spawning a grid");
-                Utilities.TrySendDenyMessage(new List<string>{gridName}, "Size Violation", remoteUserId, initialBlockCount);
+                Utilities.TrySendDenyMessage(new List<string> { gridName }, limitName ?? "Block Limit", remoteUserId, initialBlockCount);
                 NetworkManager.RaiseStaticEvent(ShowPasteFailed, new EndpointId(remoteUserId), null);
                 return false;
             }
 
-            var playerFaction = MySession.Static.Factions.GetPlayerFaction(playerId);
-            string limitName = null;
-            var removalCount = 0;
-            var removedList = new List<string>();
-            foreach (var grid in grids)
-            {
-                foreach (var limit in BlockLimiterConfig.Instance.AllLimits)
-                {
-                    var fCount = 0;
-
-                    if (limit.IsExcepted(playerId)) continue;
-                    var matchBlocks = new HashSet<MyObjectBuilder_CubeBlock>(grid.CubeBlocks.Where(x => limit.IsMatch(Utilities.GetDefinition(x))));
-                    limit.FoundEntities.TryGetValue(playerId, out var pCount);
-                    if (playerFaction != null)
-                        limit.FoundEntities.TryGetValue(playerFaction.FactionId, out fCount);
-
-                    foreach (var block in matchBlocks)
-                    {
-                        if (Math.Abs(matchBlocks.Count + pCount - removalCount) <= limit.Limit && Math.Abs(fCount + matchBlocks.Count - removalCount) <= limit.Limit) break;
-                        removalCount++;
-                        var blockDef = Utilities.GetDefinition(block).ToString().Substring(16);
-                        grid.CubeBlocks.Remove(block);
-                        if (removedList.Contains(blockDef))
-                            continue;
-                        removedList.Add(blockDef);
-                        limitName = limit.Name;
-                    }
-
-                }
-            }
-
-            if (removalCount == 0) return true;
+            if (!itemsRemoved) return true;
             
             
-            parameters.Entities = grids;
             Utilities.TrySendDenyMessage(removedList,limitName,remoteUserId,removalCount);
             BlockLimiter.Instance.Log.Info($"Removed {removalCount} blocks from grid spawned by {MySession.Static.Players.TryGetIdentity(playerId)?.DisplayName}");
             return true;

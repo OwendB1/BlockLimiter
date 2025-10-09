@@ -48,6 +48,7 @@ namespace BlockLimiter.Settings
         private bool _loading;
         private bool _vanillaLimits;
         private bool _annoy;
+        private bool _annoySound;
         private int _annoyInterval = 800;
         private int _annoyDuration = 15000;
         private string _serverName = BlockLimiter.ChatName;
@@ -331,18 +332,19 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 5,Name = "Punishment Interval (s)", GroupName = "Punishment", Description = "How often the punishment is triggered in seconds.")]
-        public int PunishInterval
+        [Display(Order = 2, Name = "Enable Annoyance Sound", GroupName = "Punishment")]
+        public bool AnnoySound
         {
-            get => _punishInterval;
+            get => _annoySound;
             set
             {
-                _punishInterval = Math.Max(30,value); 
+                _annoySound = value;
                 Changed();
             }
         }
 
-        [Display(Order = 2, Name = "Annoyance Message", GroupName = "Punishment")]
+
+        [Display(Order = 3, Name = "Annoyance Message", GroupName = "Punishment")]
         public string AnnoyMessage
         {
             get => _annoyMsg;
@@ -353,7 +355,7 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 3,Name = "Annoy Message Interval (s)", GroupName = "Punishment", Description = "How often annoyance message is triggered in seconds")]
+        [Display(Order = 4,Name = "Annoy Message Interval (s)", GroupName = "Punishment", Description = "How often annoyance message is triggered in seconds")]
         public int AnnoyInterval
         {
             get => _annoyInterval;
@@ -364,7 +366,7 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 4, Name = "Annoy Duration (ms)", GroupName = "Punishment", Description = "How long annoying message stays on the screen in ms")]
+        [Display(Order = 5, Name = "Annoy Duration (ms)", GroupName = "Punishment", Description = "How long annoying message stays on the screen in ms")]
         public int AnnoyDuration
         {
             get => _annoyDuration;
@@ -375,6 +377,16 @@ namespace BlockLimiter.Settings
             }
         }
 
+        [Display(Order = 6, Name = "Punishment Interval (s)", GroupName = "Punishment", Description = "How often the punishment is triggered in seconds.")]
+        public int PunishInterval
+        {
+            get => _punishInterval;
+            set
+            {
+                _punishInterval = Math.Max(30, value);
+                Changed();
+            }
+        }
         #endregion
 
         #region Loading and Saving

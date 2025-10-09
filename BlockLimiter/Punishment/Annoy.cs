@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BlockLimiter.ProcessHandlers;
+﻿using BlockLimiter.ProcessHandlers;
 using BlockLimiter.Settings;
 using BlockLimiter.Utility;
 using NLog;
+using Sandbox.Game.Entities.Cube;
 using Sandbox.Game.World;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Torch.API.Managers;
+using Torch.Managers.ChatManager;
 using Torch.Mod;
 using Torch.Mod.Messages;
 using VRage.Game;
+using VRageMath;
 
 namespace BlockLimiter.Punishment
 {
@@ -60,7 +64,7 @@ namespace BlockLimiter.Punishment
                     var annoy = false;
                     foreach (var item in limitItems)
                     {
-                        if (item.IsExcepted(player)) continue;
+                        if (item.IsExcepted(player) || !item.Annoy) continue;
 
                         foreach (var (id,count) in item.FoundEntities)
                         {
@@ -115,12 +119,20 @@ namespace BlockLimiter.Punishment
                     try
                     {
                         ModCommunication.SendMessageTo(new NotificationMessage($"{BlockLimiterConfig.Instance.AnnoyMessage}",BlockLimiterConfig.Instance.AnnoyDuration,MyFontEnum.White),id);
+                        var chatManager = BlockLimiter.Instance.Torch.CurrentSession.Managers.GetManager<ChatManagerServer>();
+                        chatManager?.SendMessageAsOther(BlockLimiterConfig.Instance.ServerName,
+                            $"{BlockLimiterConfig.Instance.AnnoyMessage}", Color.Red, id);
+                        
+                        if (BlockLimiterConfig.Instance.AnnoySound)
+                            Utilities.SendFailSound(id);
+
                     }
                     catch (Exception exception)
                     {
                         Log.Error(exception);
                     }
                     BlockLimiter.Instance.Log.Info($"Annoy message sent to {Utilities.GetPlayerNameFromSteamId(id)}");
+
 
                 }
             }
