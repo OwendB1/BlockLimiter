@@ -321,7 +321,8 @@ namespace BlockLimiter.Settings
 
         #region Punishment
 
-        [Display(Order = 1, Name = "Enable Annoyance Message", GroupName = "Punishment")]
+        [Display(Order = 1, Name = "Enable Annoyance Message", GroupName = "Punishment",
+            Description = "Determines if annoy messages are displayed.")]
         public bool Annoy
         {
             get => _annoy;
@@ -332,7 +333,8 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 2, Name = "Enable Annoyance Sound", GroupName = "Punishment")]
+        [Display(Order = 2, Name = "Enable Annoyance Sound", GroupName = "Punishment",
+            Description = "Determins is annoy message is accompanied with the default deny sound")]
         public bool AnnoySound
         {
             get => _annoySound;
