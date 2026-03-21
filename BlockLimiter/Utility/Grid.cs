@@ -253,7 +253,15 @@ namespace BlockLimiter.Utility
                 limitName = limit.Name;
                 if (!limit.LimitGrids) continue;
 
-                if (limit.IsExcepted(grid1) || limit.IsExcepted(grid2)) continue;
+                if (limit.IgnoreNpcs)
+                {
+                    if ((grid1.BigOwners.Count == 0 || grid1.BigOwners.All(x => MySession.Static.Factions.GetPlayerFaction(x) == null)) && (grid2.BigOwners.Count == 0 || grid2.BigOwners.All(x => MySession.Static.Factions.GetPlayerFaction(x) == null)))
+                    {
+                        continue;
+                    }
+				}
+
+				if (limit.IsExcepted(grid1) || limit.IsExcepted(grid2)) continue;
                 var subGridCount = 0;
 
                 if (sugGridIds.Count > 0)
@@ -346,6 +354,14 @@ namespace BlockLimiter.Utility
             {
                 limitName = limit.Name;
                 if (!limit.LimitGrids) continue;
+
+                if (limit.IgnoreNpcs)
+                {
+                    if (grid1.BigOwners.Count == 0 || grid1.BigOwners.All(x => MySession.Static.Factions.GetPlayerFaction(x) == null))
+                    {
+                        continue;
+					}
+				}
 
                 if (limit.IsExcepted(grid1)  || !limit.IsGridType(grid1)) continue;
 

@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\blocklimiter\\punishment\\annoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\punishment\\annoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\olatide\\source\\repos\\blocklimiter\\blocklimiter\\punishment\\punish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\punishment\\punish.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\olatide\\source\\repos\\blocklimiter\\blocklimiter\\utility\\utilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\utility\\utilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\olatide\\source\\repos\\blocklimiter\\blocklimiter\\settings\\blocklimiterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\settings\\blocklimiterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|c:\\users\\olatide\\source\\repos\\blocklimiter\\blocklimiter\\settings\\limititem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\settings\\limititem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\blocklimiter\\pluginapi\\essentialsplayeraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\pluginapi\\essentialsplayeraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\blocklimiter\\punishment\\annoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE2E11C6-7DBD-46F8-A707-81D94C6FACE1}|BlockLimiter\\BlockLimiter.csproj|solutionrelative:blocklimiter\\punishment\\annoy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,48 +34,97 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Utilities.cs",
+              "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Utility\\Utilities.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\Utility\\Utilities.cs",
+              "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Utility\\Utilities.cs",
+              "RelativeToolTip": "BlockLimiter\\Utility\\Utilities.cs",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAAAKgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T00:35:10.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BlockLimiterConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "RelativeToolTip": "BlockLimiter\\Settings\\BlockLimiterConfig.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAIAwwPgAAADNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T23:17:25.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Punish.cs",
+              "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Punishment\\Punish.cs",
+              "RelativeDocumentMoniker": "BlockLimiter\\Punishment\\Punish.cs",
+              "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Punishment\\Punish.cs",
+              "RelativeToolTip": "BlockLimiter\\Punishment\\Punish.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAGUAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-09T23:08:27.22Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "LimitItem.cs",
               "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Settings\\LimitItem.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Settings\\LimitItem.cs",
               "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Settings\\LimitItem.cs",
               "RelativeToolTip": "BlockLimiter\\Settings\\LimitItem.cs",
-              "ViewState": "AgIAAJYBAAAAAAAAAAAwwMcBAABIAAAAAAAAAA==",
+              "ViewState": "AgIAACoCAAAAAAAAAAAAADkCAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T22:02:57.466Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "EssentialsPlayerAccount.cs",
               "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\PluginApi\\EssentialsPlayerAccount.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\PluginApi\\EssentialsPlayerAccount.cs",
               "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\PluginApi\\EssentialsPlayerAccount.cs",
               "RelativeToolTip": "BlockLimiter\\PluginApi\\EssentialsPlayerAccount.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAEkAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAIAwwDAAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T22:02:18.457Z"
+              "WhenOpened": "2025-10-09T22:02:18.457Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Annoy.cs",
               "DocumentMoniker": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Punishment\\Annoy.cs",
               "RelativeDocumentMoniker": "BlockLimiter\\Punishment\\Annoy.cs",
               "ToolTip": "C:\\Users\\Olatide\\source\\repos\\BlockLimiter\\BlockLimiter\\Punishment\\Annoy.cs",
               "RelativeToolTip": "BlockLimiter\\Punishment\\Annoy.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAAG8AAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAAJcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-08T21:39:40.9Z"
+              "WhenOpened": "2025-10-08T21:39:40.9Z",
+              "EditorCaption": ""
             }
           ]
         }
