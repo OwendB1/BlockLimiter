@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="HavokWrapper">
       <HintPath>..\TorchBinaries\DedicatedServer64\HavokWrapper.dll</HintPath>
       <Private>False</Private>

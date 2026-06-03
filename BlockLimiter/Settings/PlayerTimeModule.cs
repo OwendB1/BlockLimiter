@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 using BlockLimiter.Utility;
-using Newtonsoft.Json;
 using NLog;
 using Sandbox.Game.World;
 
@@ -11,23 +11,52 @@ namespace BlockLimiter.Settings
     public class PlayerTimeModule
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(List<PlayerTimeData>));
 
         public static List<PlayerTimeData> PlayerTimes = new List<PlayerTimeData>();
 
+        [Serializable]
         public class PlayerTimeData 
         {
-            [JsonProperty(Order = 1)]
+            [XmlElement(Order = 1)]
             public string Player { get; set; }
-            [JsonProperty(Order = 2)]
+            [XmlElement(Order = 2)]
             public ulong SteamId { get; set; }
-            [JsonProperty(Order = 3)]
+            [XmlElement(Order = 3)]
             public DateTime FirstLogTime { get; set; }
         }
 
 
         private static void SaveTimeData()
         {
-            File.WriteAllText(BlockLimiter.Instance.timeDataPath,JsonConvert.SerializeObject(PlayerTimes, Formatting.Indented));
+            if (PlayerTimes == null) PlayerTimes = new List<PlayerTimeData>();
+
+            using (var writer = new StreamWriter(BlockLimiter.Instance.timeDataPath))
+            {
+                Serializer.Serialize(writer, PlayerTimes);
+            }
+        }
+
+        public static void LoadTimeData()
+        {
+            if (!File.Exists(BlockLimiter.Instance.timeDataPath))
+            {
+                PlayerTimes = new List<PlayerTimeData>();
+                SaveTimeData();
+                return;
+            }
+
+            if (new FileInfo(BlockLimiter.Instance.timeDataPath).Length == 0)
+            {
+                PlayerTimes = new List<PlayerTimeData>();
+                SaveTimeData();
+                return;
+            }
+
+            using (var reader = new StreamReader(BlockLimiter.Instance.timeDataPath))
+            {
+                PlayerTimes = (List<PlayerTimeData>) Serializer.Deserialize(reader) ?? new List<PlayerTimeData>();
+            }
         }
 
         public static void LogTime(Torch.API.IPlayer player)

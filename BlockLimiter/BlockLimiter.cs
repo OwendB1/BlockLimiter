@@ -12,7 +12,6 @@ using BlockLimiter.ProcessHandlers;
 using BlockLimiter.Punishment;
 using BlockLimiter.Settings;
 using BlockLimiter.Utility;
-using Newtonsoft.Json;
 using NLog;
 using Sandbox.Engine.Multiplayer;
 using Sandbox.Game.Entities;
@@ -316,24 +315,17 @@ namespace BlockLimiter
                     {
                         Directory.CreateDirectory(storageDir);
                     }
-                    timeDataPath = Path.Combine(storageDir, "BLPlayerTime.json");
+                    timeDataPath = Path.Combine(storageDir, "BLPlayerTime.xml");
                     if (!File.Exists(timeDataPath))
                     {
-                        var stream = File.Create(timeDataPath);
                         Log.Warn($"Creating Player Time data at {timeDataPath}");
-                        stream.Dispose();
                     }
 
                     break;
 
                 case TorchSessionState.Loaded:
 
-                    var data = File.ReadAllText(timeDataPath);
-                    if (!string.IsNullOrEmpty(data))
-                    {
-                        PlayerTimeModule.PlayerTimes =
-                            JsonConvert.DeserializeObject<List<PlayerTimeModule.PlayerTimeData>>(data);
-                    }
+                    PlayerTimeModule.LoadTimeData();
 
                     Torch.CurrentSession.Managers.GetManager<IMultiplayerManagerServer>().PlayerJoined +=
                         PlayerTimeModule.LogTime;
