@@ -1,25 +1,19 @@
 :: This script creates a symlink to the game binaries to account for different installation directories on different systems.
 
-@echo off
-setglobal
-set Torch=D:\GameFolder\Torch
-endglobal
-set path=%Torch%\DedicatedServer64
-mklink /J GameBinaries "%path%"
+
+set /p path="Please enter the folder location of your Torch.Server.exe: "
+cd %~dp0
+rmdir TorchBinaries > nul 2>&1
+mklink /J TorchBinaries "%path%"
 if errorlevel 1 goto Error
 echo Done!
-goto End
+
+echo You can now open the plugin without issue.
+goto EndFinal
+
 :Error
 echo An error occured creating the symlink.
 goto EndFinal
-:End
 
-
-mklink /J TorchBinaries "%Torch%"
-if errorlevel 1 goto Error
-echo Done! You can now open the Torch solution without issue.
-goto EndFinal
-:Error2
-echo An error occured creating the symlink.
 :EndFinal
 pause
