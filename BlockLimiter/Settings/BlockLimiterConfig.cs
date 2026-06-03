@@ -71,6 +71,7 @@ namespace BlockLimiter.Settings
         private int _maxBlockSizeProjections = 0;
         private int _maxSmallGrids = 0;
         private int _maxLargeGrids = 0;
+        private bool _enableNexusSync;
         private BlockingType _blockingType = BlockingType.None;
 
 
@@ -234,8 +235,21 @@ namespace BlockLimiter.Settings
             }
         }
 
+        [Display(Order = 6, GroupName = "*Main Settings", Name = "Enable Nexus Sync", Description = "Syncs player and faction limit counts across Nexus instances")]
+        public bool EnableNexusSync
+        {
+            get => _enableNexusSync;
+            set
+            {
+                _enableNexusSync = value;
+                Changed();
+                if (MyAPIGateway.Session != null)
+                    BlockLimiter.Instance.RestartNexusSync();
+            }
+        }
 
-        [Display(Order = 6, GroupName = "*Main Settings", Name = "Deny Message", Description = "Message posted when limit is reached.  {BL} to list names of denied blocks. {BC} to give count of affected blocks")]
+
+        [Display(Order = 7, GroupName = "*Main Settings", Name = "Deny Message", Description = "Message posted when limit is reached.  {BL} to list names of denied blocks. {BC} to give count of affected blocks")]
         public string DenyMessage
         {
             get => _denyMessage;
@@ -246,7 +260,7 @@ namespace BlockLimiter.Settings
             }
         }
 
-        [Display(Order = 7, GroupName = "*Main Settings", Name = "Projection Deny Message", Description = "Message posted when blocks are removed from projection.  {BL} to list names of denied blocks. {BC} to give count of affected blocks")]
+        [Display(Order = 8, GroupName = "*Main Settings", Name = "Projection Deny Message", Description = "Message posted when blocks are removed from projection.  {BL} to list names of denied blocks. {BC} to give count of affected blocks")]
         public string ProjectionDenyMessage
         {
             get => _projectionDenyMessage;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using BlockLimiter.Network;
 using BlockLimiter.Settings;
 using NLog;
 using Sandbox.Game.Entities;
@@ -69,7 +70,8 @@ namespace BlockLimiter.Utility
             {
                 foreach (var limit in BlockLimiterConfig.Instance.AllLimits)
                 {
-                    limit.FoundEntities.Remove(id);
+                    if (!LimitsNexusSync.TrySetLocalPlayerCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);
                 }
                 return false;
             }
@@ -78,18 +80,21 @@ namespace BlockLimiter.Utility
             {
                 if (!limit.LimitPlayers)
                 {
-                    limit.FoundEntities.Remove(id);
+                    if (!LimitsNexusSync.TrySetLocalPlayerCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);
                     return;
                 }
                 var limitedBlocks = playerBlocks.Count(x =>
                     limit.IsMatch(x.BlockDefinition));
                 if (limitedBlocks == 0)
                 {
-                    limit.FoundEntities.Remove(id);
+                    if (!LimitsNexusSync.TrySetLocalPlayerCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);
                     return;
                 }
 
-                limit.FoundEntities[id] = limitedBlocks;
+                if (!LimitsNexusSync.TrySetLocalPlayerCount(limit, id, limitedBlocks))
+                    limit.FoundEntities[id] = limitedBlocks;
 
 
             });
@@ -148,7 +153,8 @@ namespace BlockLimiter.Utility
             {
                 foreach (var limit in limits)
                 {
-                    limit.FoundEntities.Remove(id);  
+                    if (!LimitsNexusSync.TrySetLocalFactionCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);  
                 }
                 return false;
             }
@@ -161,7 +167,8 @@ namespace BlockLimiter.Utility
             {
                 if (!limit.LimitFaction)
                 {
-                    limit.FoundEntities.Remove(id);
+                    if (!LimitsNexusSync.TrySetLocalFactionCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);
                     return;
                 }
 
@@ -169,11 +176,13 @@ namespace BlockLimiter.Utility
 
                 if (factionBlockCount == 0)
                 {
-                    limit.FoundEntities.Remove(id);
+                    if (!LimitsNexusSync.TrySetLocalFactionCount(limit, id, 0))
+                        limit.FoundEntities.Remove(id);
                     return;
                 }
 
-                limit.FoundEntities[id] = factionBlockCount;
+                if (!LimitsNexusSync.TrySetLocalFactionCount(limit, id, factionBlockCount))
+                    limit.FoundEntities[id] = factionBlockCount;
 
             });
             return true;

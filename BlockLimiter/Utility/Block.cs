@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BlockLimiter.Network;
 using BlockLimiter.Patch;
 using BlockLimiter.Settings;
 using NLog;
@@ -253,7 +254,8 @@ namespace BlockLimiter.Utility
                     
                         }
 
-                        limit.FoundEntities.AddOrUpdate(playerId, amount, (l, i) => i+amount);
+                        if (!LimitsNexusSync.TryAddLocalPlayerCount(limit, playerId, amount))
+                            limit.FoundEntities.AddOrUpdate(playerId, amount, (l, i) => i+amount);
 
                     }
                 }
@@ -261,7 +263,8 @@ namespace BlockLimiter.Utility
                 if (!limit.LimitFaction || factions.Count <= 0) continue;
                 foreach (var faction in factions)
                 {
-                    limit.FoundEntities.AddOrUpdate(faction.FactionId, amount, (l, i) => i+amount);
+                    if (!LimitsNexusSync.TryAddLocalFactionCount(limit, faction.FactionId, amount))
+                        limit.FoundEntities.AddOrUpdate(faction.FactionId, amount, (l, i) => i+amount);
                 }
 
             }
@@ -310,13 +313,17 @@ namespace BlockLimiter.Utility
                     }
 
                     if (limit.LimitPlayers)
-                        limit.FoundEntities.AddOrUpdate(playerId, 0, (l, i) => Math.Max(0,i - amount));
+                    {
+                        if (!LimitsNexusSync.TryAddLocalPlayerCount(limit, playerId, -amount))
+                            limit.FoundEntities.AddOrUpdate(playerId, 0, (l, i) => Math.Max(0,i - amount));
+                    }
                 }
 
                 if (limit.LimitFaction && factions.Count > 0)
                     foreach (var faction in factions)
                     {
-                        limit.FoundEntities.AddOrUpdate(faction.FactionId, 0, (l, i) => Math.Max(0,i - amount));
+                        if (!LimitsNexusSync.TryAddLocalFactionCount(limit, faction.FactionId, -amount))
+                            limit.FoundEntities.AddOrUpdate(faction.FactionId, 0, (l, i) => Math.Max(0,i - amount));
                     }
                 limit.ClearEmptyEntities();
             }

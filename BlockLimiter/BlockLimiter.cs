@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using BlockLimiter.Network;
 using BlockLimiter.Patch;
 using BlockLimiter.PluginApi;
 using BlockLimiter.PluginApi.MultigridProjectorApi;
@@ -50,6 +51,7 @@ namespace BlockLimiter
         public static IPluginManager PluginManager { get; private set; }
         public string timeDataPath = "";
         private MyConcurrentHashSet<MySlimBlock> _justAdded = new MyConcurrentHashSet<MySlimBlock>();
+        private NexusAPI _nexusApi;
 
         public IMultigridProjectorApi MultigridProjectorApi;
 
@@ -293,6 +295,7 @@ namespace BlockLimiter
             base.Update();
             if (MyAPIGateway.Session == null|| !BlockLimiterConfig.Instance.EnableLimits)
                 return;
+            LimitsNexusSync.RunPeriodicSnapshotTick();
             if (++_updateCounter10 % 10 == 0)
             {
                 GridChange.ClearRemoved();
@@ -332,12 +335,14 @@ namespace BlockLimiter
                     DoInit();
                     EnableControl();
                     GetVanillaLimits();
+                    RestartNexusSync();
                     if (BlockLimiterConfig.Instance.EnableLimits)
                     {
                         Activate(); 
                     }
                     break;
                 case TorchSessionState.Unloading:
+                    StopNexusSync();
                     break;
                 default:
                     return;
@@ -365,6 +370,41 @@ namespace BlockLimiter
                 ResetLimits(true,false,false);
             });
         }
+
+        public void RestartNexusSync()
+        {
+            StopNexusSync();
+            if (!BlockLimiterConfig.Instance.EnableNexusSync || MyAPIGateway.Session == null) return;
+
+            _nexusApi = new NexusAPI(() =>
+            {
+                Log.Info("Nexus API connected. Starting BlockLimiter limit count sync.");
+                LimitsNexusSync.Start(_nexusApi);
+            });
+
+            if (_nexusApi.Enabled)
+                LimitsNexusSync.Start(_nexusApi);
+        }
+
+        private void StopNexusSync()
+        {
+            LimitsNexusSync.Stop();
+            if (_nexusApi == null) return;
+
+            try
+            {
+                _nexusApi.Unload();
+            }
+            catch (Exception e)
+            {
+                Log.Warn(e, "Failed to unload Nexus API");
+            }
+            finally
+            {
+                _nexusApi = null;
+            }
+        }
+
         private static void Load()
         {
             BlockLimiterConfig.Instance.Load();
@@ -391,6 +431,7 @@ namespace BlockLimiter
         public override void Dispose()
         {
             base.Dispose();
+            StopNexusSync();
             try
             {
                 foreach (var thread in _processThreads)
