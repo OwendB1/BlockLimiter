@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<PluginManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="utf-8"?>
+<PluginManifest>
   <Name>BlockLimiter</Name>
   <Guid>0625c101-bd83-4c0c-bdfc-c8a973c80db6</Guid>
   <Repository>Owendb1/BlockLimiter</Repository>
